@@ -11,17 +11,7 @@ const INITAL_STATE = {
 const contactsSlice = createSlice({
   name: "contacts",
   initialState: INITAL_STATE,
-  // Об'єкт редюсерів
-  // reducers: {
-  //   addContact(state, action) {
-  //     state.items.push(action.payload);
-  //   },
-  //   deleteContact(state, action) {
-  //     state.items = state.items.filter(
-  //       (contact) => contact.id !== action.payload
-  //     );
-  //   },
-  // },
+
   extraReducers: (builder) =>
     builder
       .addCase(fetchContacts.pending, (state) => {
@@ -56,10 +46,9 @@ const contactsSlice = createSlice({
       })
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.loading = false;
-        const contactIdx = state.items.findIndex(
-          (contact) => contact.id === action.payload.id
+        state.items = state.items.filter(
+          (contact) => contact.id !== action.payload.id
         );
-        state.items.splice(contactIdx, 1);
       })
       .addCase(deleteContact.rejected, (state, action) => {
         state.loading = false;

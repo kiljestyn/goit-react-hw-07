@@ -5,8 +5,8 @@ export const fetchContacts = createAsyncThunk(
   "contacts/fetchAll",
   async (_, thunkApi) => {
     try {
-      const data = await getContacts();
-      return data; // ТЕ, ЩО ПОВЕРТАЄТЬСЯ З САНКИ ПОТРАПЛЯЄ В action.payload
+      const response = await getContacts();
+      return response; // ТЕ, ЩО ПОВЕРТАЄТЬСЯ З САНКИ ПОТРАПЛЯЄ В action.payload
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
@@ -19,7 +19,7 @@ export const addContact = createAsyncThunk(
     try {
       const response = await postContact(finalContact);
 
-      return response.data; // ТЕ, ЩО ПОВЕРТАЄТЬСЯ З САНКИ ПОТРАПЛЯЄ В action.payload
+      return response; // ТЕ, ЩО ПОВЕРТАЄТЬСЯ З САНКИ ПОТРАПЛЯЄ В action.payload
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
@@ -32,7 +32,7 @@ export const deleteContact = createAsyncThunk(
     try {
       const response = await getDeleteContact(contactId);
 
-      return response.data; // ТЕ, ЩО ПОВЕРТАЄТЬСЯ З САНКИ ПОТРАПЛЯЄ В action.payload
+      return response; // ТЕ, ЩО ПОВЕРТАЄТЬСЯ З САНКИ ПОТРАПЛЯЄ В action.payload
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
