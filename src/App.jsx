@@ -1,22 +1,29 @@
 import ContactForm from "./components/ContactForm/ContactForm";
 import SearchBox from "./components/SearchBox/SearchBox";
 import ContactList from "./components/ContactList/ContactList";
+import { selectError, selectLoading } from "./redux/contactsSlice";
+import Loader from "./components/Loader/Loader";
+import { fetchContacts } from "./redux/contactsOps";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 // import phonebookContacts from "./contact.json";
 
 const App = () => {
-  // const phonebookContacts = [
-  //   { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-  //   { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-  //   { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-  //   { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
-  // ];
+  const isLoading = useSelector(selectLoading);
+  const isError = useSelector(selectError);
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
   return (
     <>
       <h1>Phonebook</h1>
       <ContactForm />
       <SearchBox />
+      {isLoading && <Loader />}
+      {isError && <p>{isError}</p>}
       <ContactList />
     </>
   );
